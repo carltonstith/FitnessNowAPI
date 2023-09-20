@@ -1,27 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "\\\\Mac\\Home\\Documents\\code\\One-Project-Each-Day\\day-one\\FitnessNowAPI\\FitnessNowAPI\\FitnessNowAPI.csproj": {}
+    "/Users/carltonstith/Documents/code/One-Project-Each-Day/day-one/FitnessNowAPI/FitnessNowAPI/FitnessNowAPI.csproj": {}
   },
   "projects": {
-    "\\\\Mac\\Home\\Documents\\code\\One-Project-Each-Day\\day-one\\FitnessNowAPI\\FitnessNowAPI\\FitnessNowAPI.csproj": {
+    "/Users/carltonstith/Documents/code/One-Project-Each-Day/day-one/FitnessNowAPI/FitnessNowAPI/FitnessNowAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\Mac\\Home\\Documents\\code\\One-Project-Each-Day\\day-one\\FitnessNowAPI\\FitnessNowAPI\\FitnessNowAPI.csproj",
+        "projectUniqueName": "/Users/carltonstith/Documents/code/One-Project-Each-Day/day-one/FitnessNowAPI/FitnessNowAPI/FitnessNowAPI.csproj",
         "projectName": "FitnessNowAPI",
-        "projectPath": "\\\\Mac\\Home\\Documents\\code\\One-Project-Each-Day\\day-one\\FitnessNowAPI\\FitnessNowAPI\\FitnessNowAPI.csproj",
-        "packagesPath": "C:\\Users\\carltonstith\\.nuget\\packages\\",
-        "outputPath": "\\\\Mac\\Home\\Documents\\code\\One-Project-Each-Day\\day-one\\FitnessNowAPI\\FitnessNowAPI\\obj\\",
+        "projectPath": "/Users/carltonstith/Documents/code/One-Project-Each-Day/day-one/FitnessNowAPI/FitnessNowAPI/FitnessNowAPI.csproj",
+        "packagesPath": "/Users/carltonstith/.nuget/packages/",
+        "outputPath": "/Users/carltonstith/Documents/code/One-Project-Each-Day/day-one/FitnessNowAPI/FitnessNowAPI/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\carltonstith\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/carltonstith/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -40,6 +41,28 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoFixture": {
+              "target": "Package",
+              "version": "[4.18.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.22, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.22, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.22, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.22, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -64,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.401/RuntimeIdentifierGraph.json"
         }
       }
     }
