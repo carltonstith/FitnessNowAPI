@@ -1,11 +1,16 @@
 ﻿using FitnessNowAPI.Context;
 using FitnessNowAPI.Helpers;
 using FitnessNowAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
+
 
 namespace FitnessNowAPI.Controllers
 {
@@ -28,13 +33,25 @@ namespace FitnessNowAPI.Controllers
                 return BadRequest();
             }
 
-            var user = await _authContext.Users.FirstOrDefaultAsync(x => x.Username == userObj.Username && x.Password ==  userObj.Password);
+            var user = await _authContext.Users.FirstOrDefaultAsync(x => x.Username == userObj.Username);
+            
             if (user == null) 
             {
                 return NotFound(new { Message = "User Not Found!" });
             }
 
-            return Ok( new { Message = "Login Success!" });
+            if(!PasswordHasher.VerifyPassword(userObj.Password, user.Password))
+            {
+                return BadRequest(new { Message = "Password is Incorrect!" });
+            }
+
+            user.Token = CreateJwt(user);
+
+            return Ok( new 
+            { 
+                Token = user.Token,
+                Message = "Login Success!" 
+            });
         }
 
         [HttpPost("register")]
@@ -100,6 +117,39 @@ namespace FitnessNowAPI.Controllers
                 sb.Append("Password should contain special characters" + Environment.NewLine);
 
             return sb.ToString();
+        }
+        
+        private string CreateJwt(User user) 
+        {
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("veryverysecret...");
+            var identity = new ClaimsIdentity(new Claim[]
+            {
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}")
+            });
+
+            var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = identity,
+                Expires = DateTime.UtcNow.AddMinutes(60),
+                //Expires = DateTime.UtcNow.AddMinutes(1),
+                //Expires = DateTime.UtcNow.AddDays(1),
+                SigningCredentials = credentials,
+            };
+
+            //create the token
+            var token = jwtTokenHandler.CreateToken(tokenDescriptor);
+            return jwtTokenHandler.WriteToken(token);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<User>> GetAllUsers()
+        {
+            return Ok(await _authContext.Users.ToListAsync());
         }
     }
 }
